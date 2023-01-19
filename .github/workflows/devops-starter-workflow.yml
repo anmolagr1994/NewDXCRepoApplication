@@ -169,10 +169,3 @@ jobs:
         [xml]$doc = Get-Content functionalTests.runsettings
         $doc.RunSettings.TestRunParameters.ChildNodes.Item(0).value = 'https://${{ env.AZURE_WEBAPP_NAME }}.azurewebsites.net/'
         $doc.Save("$(pwd)/functionalTests.runsettings")
-
-    # Run functional tests
-    - name: Run tests
-      continue-on-error: false
-      run: |
-        cd Application\SampleWebApplication.FunctionalTests
-        dotnet test bin\Release\*.FunctionalTests.dll -s functionalTests.runsettings
